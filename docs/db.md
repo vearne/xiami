@@ -10,6 +10,9 @@ song（歌曲）
 | play_count | int | 试听次数 |
 | share_count | int | 分享次数 |
 | comment_count | int | 评论次数 |
+| name | varchar(50) | 歌曲名称 |
+| create_time | Date | 创建时间 |
+| update_time | Date | 更新时间 |
 
 
 artist（歌手)
