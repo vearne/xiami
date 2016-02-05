@@ -3,10 +3,11 @@ from lxml import etree
 from StringIO import StringIO
 import requests
 import random
+import os
 
 def get_proxy():
     proxy_list = []
-    for i in range(1, 3):
+    for i in range(1, 10):
         url = 'http://www.kuaidaili.com/proxylist/%s' % (i) 
         r = requests.get(url)
         ss = r.text
@@ -27,24 +28,34 @@ def get_proxy():
             #print len(td_list)
     return proxy_list
 
+
+
+
 def main():
     proxy_list = get_proxy()
-    print 'len proxy_list', len(proxy_list)
-    proxy = random.choice(proxy_list)
-    purl = 'http://%s:%s' % (proxy['ip'], proxy['port'])
-    print purl
-    proxies = {
-        "http": purl,
-    }
-    id = 1
-    url = 'http://www.xiami.com/song/%s' % (id) 
-    print 'url', url
-    res = requests.get(url, proxies=proxies)
-    print res.text
+    for proxy in proxy_list:
+        cmd = 'nc -w 2 -z %s %s' % (proxy['ip'], proxy['port'])
+        code = os.system(cmd)
+        if code == 0:
+            print 'cmd', cmd
+
+    # print 'len proxy_list', len(proxy_list)
+    # proxy = random.choice(proxy_list)
+    # purl = 'http://%s:%s' % (proxy['ip'], proxy['port'])
+    # print purl
+    # proxies = {
+    #     "http": purl,
+    # }
+    # id = 1
+    # url = 'http://www.xiami.com/song/%s' % (id)
+    # print 'url', url
+    # res = requests.get(url, proxies=proxies)
+    # print res.text
 
 
 if __name__ == '__main__':
     main()
+
 
 
 
