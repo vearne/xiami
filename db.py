@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from peewee import *
 
-db = MySQLDatabase(host='127.0.0.1', user='xiami', passwd='xiami1234', database='xiami', charset='utf8mb4')
+db = MySQLDatabase(host='127.0.0.1', user='xiami', passwd='123456', database='xiami', charset='utf8mb4')
 
 # ------------ external ---------------
 class Song(Model):
