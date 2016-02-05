@@ -56,13 +56,15 @@ def fetch(id):
         "update_time": datetime.now()
     }
     Song.get_or_create(id=id, defaults=dd)
-    print id
-#logger.info('http://www.xiami.com/song/%s', id)
+    logger.info('http://www.xiami.com/song/%s', id)
 
 
 def main():
-    for id in range(1, 2000000000):
-        fetch(id)
+    for id in xrange(1, 2000000000):
+        try:
+            fetch(id)
+        except:
+            logger.error('http://www.xiami.com/song/%s', id, exc_info=1) 
 
 
 if __name__ == '__main__':
