@@ -36,3 +36,6 @@ album（专辑)
 | artist_name| varchar(30)| 歌手名称 |
 |genre|varchar(30)|风格|
 |company|varchar(30)|唱片公司|
+
+
+
