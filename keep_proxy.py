@@ -30,10 +30,11 @@ def get_proxy():
     item_list = res.text.split('\n')
     for item in item_list:
         ip, port = item.split(':')
+        port = int(port)
         query = Proxy.select().where(Proxy.ip==ip)
         res = query.execute()
         temp_list = [p for p in res]
-        if len(temp_list) == 0:
+        if len(temp_list) == 0 and check(ip, port):
             p = Proxy()
             p.ip = ip
             p.port = port
@@ -45,21 +46,20 @@ def check_and_mark():
     query = Proxy.select().where(Proxy.valid == True)
     proxy_list = query.execute()
     for proxy in proxy_list:
-        flag = check(proxy)
+        flag = check(proxy.ip, proxy.port)
         if flag == False:
             print proxy
             proxy.valid = False
             proxy.save()
 
 
-def check(proxy):
+def check(ip, port):
     headers={
         'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36'
     }
     try:
-        print ('http://%s:%s' % (proxy.ip, proxy.port))
         proxies = {
-            "http": 'http://%s:%s' % (proxy.ip, proxy.port)
+            "http": 'http://%s:%s' % (ip, port)
         }
         url = 'http://up.xiaorui.cc:9000/test.json'
         res = requests.get(url, proxies=proxies, timeout=3, headers=headers)
