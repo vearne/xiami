@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from peewee import *
 
-db = MySQLDatabase(host='127.0.0.1', user='xiami', passwd='123456', database='xiami', charset='utf8mb4')
+db = MySQLDatabase(host='127.0.0.1', user='xiami', passwd='xiami1234', database='xiami', charset='utf8mb4')
 
 # ------------ external ---------------
 class Song(Model):
-    id = BigIntegerField()
+    id = BigIntegerField(primary_key=True)
     album_name = CharField()
     album_id = BigIntegerField()
     artist_name = CharField()
@@ -21,8 +21,19 @@ class Song(Model):
         database = db
         db_table = "song"
 
+class Proxy(Model):
+    id = IntegerField()
+    ip = CharField(max_length=30, unique=True)
+    port = IntegerField()
+    valid = BooleanField()
+
+    class Meta:
+        database = db
+        db_table = "proxy"
+
 if __name__ == '__main__':
     db.connect()
 
     # 建立表
-    Song.create_table()
+    # Song.create_table()
+    Proxy.create_table()
