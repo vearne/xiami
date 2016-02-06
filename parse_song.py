@@ -39,10 +39,18 @@ class FetchWorker(threading.Thread):
         while(True):
             i += 1
             id = self.counter.incre()
-            try:
-                self.fetch(id)
-            except:
-                logger.error('http://www.xiami.com/song/%s', id, exc_info=1)
+            retry_flag = True
+            while retry_flag:
+                try:
+                    self.fetch(id)
+                    retry_flag = False
+                except requests.exceptions.ConnectionError:
+                    retry_flag = True
+                except requests.exceptions.ReadTimeout:
+                    retry_flag = True
+                except:
+                    retry_flag = False
+                    logger.error('http://www.xiami.com/song/%s', id, exc_info=1)
 
             if i % 20 == 0:
                 self.fetch_proxy()

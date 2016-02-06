@@ -68,7 +68,7 @@ def check(ip, port):
         if dd['a'] == 1:
             return True
     except Exception, e:
-        print e
+        print type(e), e
         return False
 
     return False
