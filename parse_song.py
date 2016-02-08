@@ -52,7 +52,7 @@ class FetchWorker(threading.Thread):
                     retry_flag = False
                     logger.error('http://www.xiami.com/song/%s', id, exc_info=1)
 
-            if i % 20 == 0:
+            if i % 50 == 0:
                 self.fetch_proxy()
 
     def fetch_proxy(self):
@@ -125,7 +125,7 @@ def main(value):
         p.join()
 
 if __name__ == '__main__':
-    value = 171678
+    value = 1601336 
     main(value)
 
 
