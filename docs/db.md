@@ -24,6 +24,8 @@ artist（歌手)
 | play_count | int | 试听次数 |
 | fans_count | int | 粉丝数 |
 | comment_count | int | 分享次数 |
+| create_time | Date | 创建时间 |
+| update_time | Date | 更新时间 |
 
 album（专辑)
 
@@ -41,6 +43,8 @@ album（专辑)
 | artist_name| varchar(30)| 歌手名称 |
 |genre|varchar(30)|风格|
 |company|varchar(30)|唱片公司|
+| create_time | Date | 创建时间 |
+| update_time | Date | 更新时间 |
 
 
 
