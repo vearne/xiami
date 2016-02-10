@@ -21,6 +21,19 @@ class Song(Model):
         database = db
         db_table = "song"
 
+class Artist(Model):
+    id = PrimaryKeyField()
+    name = CharField(max_length=30)
+    play_count = BigIntegerField()
+    fans_count = IntegerField()
+    comment_count = IntegerField()
+    create_time = DateTimeField()
+    update_time = DateTimeField()
+
+    class Meta:
+        database = db
+        db_table = "artist"
+
 class Proxy(Model):
     id = IntegerField()
     ip = CharField(max_length=30, unique=True)
@@ -36,4 +49,6 @@ if __name__ == '__main__':
 
     # 建立表
     # Song.create_table()
-    Proxy.create_table()
+    #Proxy.create_table()
+    Artist.create_table()
+
