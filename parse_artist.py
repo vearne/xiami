@@ -40,7 +40,6 @@ class FetchWorker(threading.Thread):
             i += 1
             id = self.counter.incre()
             retry_flag = True
-#            self.fetch(id)
             while retry_flag:
                 try:
                     self.fetch(id)
@@ -79,10 +78,9 @@ class FetchWorker(threading.Thread):
         res = requests.get(url, headers=headers)
         play_count = res.json()['plays']
 
-        fans_count = tree.xpath('//div[@class="music_counts"]//li[2]/a/text()')
-        #print etree.dump(fans_count[0]) 
-        #print fans_count
+        fans_count = tree.xpath('//div[@class="music_counts"]//li[2]/text()')
         fans_count = int(fans_count[0])
+
         comment_count = tree.xpath('//div[@class="music_counts"]//li[3]/a/text()')
         comment_count = int(comment_count[0])
 
@@ -103,7 +101,7 @@ class FetchWorker(threading.Thread):
 def main(value):
     worker_pool = {}
     counter = AtomicInteger(value)
-    for id in xrange(1, 3):
+    for id in xrange(1, 2):
         p = FetchWorker(counter)
         p.start()
         worker_pool[p.ident] = p
